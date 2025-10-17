@@ -297,9 +297,9 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 ## 🔗 Useful Links
 
 - **[Live Demo](https://nextjs-dapp-murex.vercel.app/)**
-- **[Documentation](./docs/)**
-- **[Architecture Guide](./docs/ARCHITECTURE.md)**
-- **[Troubleshooting](./docs/TROUBLESHOOTING.md)**
+- **[Documentation](./src/docs/)**
+- **[Architecture Guide](./src/docs/ARCHITECTURE.md)**
+- **[Troubleshooting](./src/docs/TROUBLESHOOTING.md)**
 
 ---
 
