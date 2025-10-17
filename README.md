@@ -262,53 +262,6 @@ function MyComponent() {
 - **[Zustand](https://zustand-demo.pmnd.rs/)** - Lightweight state management
 - **[TanStack Query](https://tanstack.com/query)** - Data fetching (via Wagmi)
 
-## 🗺️ Roadmap
-
-### Phase 1: Core Features ✅
-- [x] Multi-wallet connectivity
-- [x] Multi-chain support
-- [x] Token balance tracking
-- [x] Token transfer functionality
-- [x] Smart contract interactions
-- [x] Event listening and notifications
-- [x] Gas price tracking
-- [x] Network switching
-
-### Phase 2: Advanced Features 🚧
-- [ ] NFT portfolio display
-- [ ] NFT minting interface
-- [ ] Token swap integration (Uniswap/1inch)
-- [ ] Transaction history with filtering
-- [ ] Advanced gas estimation (EIP-1559)
-- [ ] ENS domain resolution
-- [ ] Multi-signature wallet support
-
-### Phase 3: DeFi Integration 📋
-- [ ] Staking interface
-- [ ] Liquidity pool management
-- [ ] Yield farming dashboard
-- [ ] Lending/borrowing protocols
-- [ ] DAO governance participation
-- [ ] Portfolio analytics
-
-### Phase 4: Enhanced UX 📋
-- [ ] PWA support for mobile
-- [ ] Offline transaction queueing
-- [ ] Transaction simulation (Tenderly)
-- [ ] Batch transactions
-- [ ] Custom token import
-- [ ] Address book management
-- [ ] QR code scanning for addresses
-
-### Phase 5: Developer Tools 📋
-- [ ] Contract deployment interface
-- [ ] ABI import tool
-- [ ] Testing utilities
-- [ ] Mock data generators
-- [ ] Comprehensive test suite
-- [ ] CI/CD pipeline
-- [ ] Docker support
-
 ### Development Guidelines
 
 1. **Code Style**: Follow the existing code style and use Prettier for formatting
@@ -352,4 +305,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 
 **⭐ If you find this project helpful, please consider giving it a star!**
 
-**Built with ❤️ by [Your Name](https://github.com/fardinvahdat)**
+**Built with ❤️ by [Fardin Vahdat](https://github.com/fardinvahdat)**
