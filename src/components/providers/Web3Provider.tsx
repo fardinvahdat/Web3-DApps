@@ -1,7 +1,8 @@
 /**
  * Web3 Provider Component
  * 
- * Wraps the application with Wagmi and other Web3 providers
+ * Wraps the application with Wagmi and React Query providers
+ * Handles wallet connections and blockchain state management
  */
 
 'use client'
@@ -17,7 +18,7 @@ interface Web3ProviderProps {
 
 /**
  * Main Web3 provider component
- * Configures Wagmi, React Query, and other necessary providers
+ * Configures Wagmi and React Query with optimized settings
  */
 export function Web3Provider({ children }: Web3ProviderProps) {
   // Create a client with optimized settings
@@ -27,11 +28,10 @@ export function Web3Provider({ children }: Web3ProviderProps) {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
-            retry: 1, // Reduced retries
+            retry: 1,
             retryDelay: 1000,
             staleTime: 30000, // 30 seconds
             gcTime: 60000, // 1 minute
-            // Prevent hanging on errors
             suspense: false,
             useErrorBoundary: false,
           },

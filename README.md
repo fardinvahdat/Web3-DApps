@@ -300,6 +300,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 - **[Documentation](./src/docs/)**
 - **[Architecture Guide](./src/docs/ARCHITECTURE.md)**
 - **[Troubleshooting](./src/docs/TROUBLESHOOTING.md)**
+- **[WALLET_CONNECTION](./src/docs/WALLET_CONNECTION.md)**
 
 ---
 

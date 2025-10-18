@@ -1,8 +1,8 @@
 /**
  * Wagmi Configuration
  * 
- * Configures Web3 providers, chains, and wallet connectors for the application.
- * Uses multiple RPC providers for redundancy and performance.
+ * Minimal configuration that avoids all external dependencies.
+ * Uses basic auto-discovery for browser wallets.
  */
 
 import { http, createConfig } from 'wagmi'
@@ -14,12 +14,10 @@ import { mainnet, sepolia, polygon, polygonAmoy, arbitrum, optimism } from 'wagm
 const hasProcess = typeof process !== 'undefined' && process.env
 
 /**
- * Project ID for WalletConnect
- * Replace with your actual project ID from cloud.walletconnect.com
+ * App metadata
  */
-const WALLETCONNECT_PROJECT_ID = hasProcess 
-  ? process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID_HERE'
-  : 'YOUR_PROJECT_ID_HERE'
+const APP_NAME = 'Web3 DApp Starter'
+const APP_DESCRIPTION = 'Production-ready Web3 Application'
 
 /**
  * RPC URLs with fallback support
@@ -60,11 +58,13 @@ export const SUPPORTED_CHAINS = [
 ] as const
 
 /**
- * Wagmi configuration with multiple wallet connectors and chains
- * Connectors are auto-discovered to avoid bundler dependency issues
+ * Wagmi configuration without explicit connectors
+ * Wagmi will auto-discover browser wallets (MetaMask, Coinbase, Brave, etc.)
+ * This avoids importing any external SDKs that may cause build issues
  */
 export const config = createConfig({
   chains: SUPPORTED_CHAINS,
+  // No connectors specified - Wagmi will auto-discover injected wallets
   transports: {
     [mainnet.id]: http(RPC_URLS.mainnet, {
       timeout: 10_000,
@@ -85,6 +85,7 @@ export const config = createConfig({
       timeout: 10_000,
     }),
   },
+  ssr: true,
 })
 
 /**
@@ -102,15 +103,9 @@ export const ChainId = {
 export type ChainId = typeof ChainId[keyof typeof ChainId]
 
 /**
- * Wallet connector configuration
- * Export this for use in components that need connector information
+ * App metadata export for use in other components
  */
-export const walletConnectConfig = {
-  projectId: WALLETCONNECT_PROJECT_ID,
-  metadata: {
-    name: 'Web3 DApp',
-    description: 'Production-ready Web3 Application',
-    url: typeof window !== 'undefined' ? window.location.origin : 'https://web3-dapp.example.com',
-    icons: ['https://avatars.githubusercontent.com/u/37784886'],
-  },
+export const appMetadata = {
+  name: APP_NAME,
+  description: APP_DESCRIPTION,
 }

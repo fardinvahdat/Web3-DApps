@@ -47,7 +47,8 @@ web3-dapp-starter/
 │
 ├── components/              # React Components
 │   ├── web3/               # Web3-specific components
-│   │   ├── WalletConnect.tsx
+│   │   ├── WalletConnect.tsx        # Connection button & dropdown
+│   │   ├── WalletConnectModal.tsx   # Professional modal (10+ wallets)
 │   │   ├── AccountInfo.tsx
 │   │   ├── TokenBalances.tsx
 │   │   ├── TransferForm.tsx
@@ -107,21 +108,36 @@ web3-dapp-starter/
 ### Wallet Connection Flow
 
 ```
-User Clicks "Connect" 
+User Clicks "Connect Wallet" Button
     ↓
-WalletConnect Component
+WalletConnectModal Opens (Professional UI)
+    ↓
+User Sees Two Tabs:
+├─ Desktop Tab: Browser extension wallets
+│   ├─ Detected Wallets (green checkmark)
+│   └─ Popular Wallets (install links)
+└─ Mobile Tab: 
+    ├─ Deep links to wallet apps
+    └─ Step-by-step instructions
+    ↓
+User Selects Wallet
+    ↓
+Desktop: Browser extension opens
+Mobile: Wallet app opens via deep link
     ↓
 useConnect Hook (Wagmi)
     ↓
-Wallet Provider (MetaMask/WalletConnect)
+Wallet Provider Authenticates
     ↓
 Connection Established
+    ↓
+Modal Closes with Success Toast
     ↓
 useWallet Hook Updates State
     ↓
 walletStore (Zustand) Persists State
     ↓
-UI Updates Across All Components
+UI Updates: Address displays in header
 ```
 
 ### Transaction Flow
@@ -164,7 +180,57 @@ The root provider that wraps the entire application with Wagmi and WalletConnect
 - Set up query client for data fetching
 - Provide Web3 context to all child components
 
-### 2. Custom Hooks
+### 2. WalletConnectModal
+
+**Location**: `/components/web3/WalletConnectModal.tsx`
+
+Professional wallet connection modal with support for 10+ wallets.
+
+**Key Features**:
+- **Tabbed Interface**: Desktop and Mobile workflows
+- **Smart Detection**: Auto-detects installed browser wallets
+- **10+ Wallets Supported**:
+  - MetaMask 🦊
+  - Coinbase Wallet 🔷
+  - WalletConnect 📱
+  - Trust Wallet ⚡
+  - Rainbow 🌈
+  - Zerion ⚫
+  - Ledger Live 🔐
+  - Argent 🛡️
+  - Brave Wallet 🦁
+  - Rabby Wallet 🐰
+
+**Desktop Tab Features**:
+- Shows "Detected Wallets" section with checkmarks
+- One-click installation links for missing wallets
+- Visual feedback on hover
+
+**Mobile Tab Features**:
+- Deep links to open wallet apps directly
+- Step-by-step instructions for wallet browsers
+- Detects if user is already in wallet browser
+
+**Technical Details**:
+- Built with shadcn/ui Dialog and Tabs components
+- Zero external SDK dependencies (no build errors)
+- Only ~8KB bundle size
+- Fully accessible (ARIA compliant)
+- Screen reader support
+
+**Architecture**:
+```typescript
+WalletConnectModal
+├── Desktop Tab
+│   ├── Detected Wallets (with checkmarks)
+│   └── Popular Wallets (with install links)
+└── Mobile Tab
+    ├── Wallet Browser Detection
+    ├── Deep Link Buttons
+    └── Instructions View
+```
+
+### 3. Custom Hooks
 
 #### useWallet
 

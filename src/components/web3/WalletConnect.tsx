@@ -1,11 +1,13 @@
 /**
  * Wallet Connect Component
  * 
- * UI component for connecting and managing wallet connections
+ * Beautiful wallet connection UI with modal
+ * Shows different wallet options similar to Web3Modal/RainbowKit
  */
 
 'use client'
 
+import { useState } from 'react'
 import { useWallet } from '../../hooks/web3/useWallet'
 import { Button } from '../ui/button'
 import {
@@ -16,23 +18,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog'
-import { useState } from 'react'
+import { WalletConnectModal } from './WalletConnectModal'
 import { formatAddress } from '../../utils/formatters'
 import { Wallet, ChevronDown, LogOut, Copy, ExternalLink } from 'lucide-react'
 import { toast } from 'sonner@2.0.3'
-import { useConnect } from 'wagmi'
 import { getAddressExplorerUrl } from '../../lib/web3/chains'
 import { copyToClipboard } from '../../utils/clipboard'
 
 /**
- * Wallet connection button with dropdown menu
+ * Wallet connection button with beautiful modal
  */
 export function WalletConnect() {
-  const { address, isConnected, isConnecting, disconnect, chainId } =
-    useWallet()
-  const [isOpen, setIsOpen] = useState(false)
-  const { connectors, connect, error } = useConnect()
+  const { address, isConnected, disconnect, chainId } = useWallet()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleCopyAddress = async () => {
     if (address) {
@@ -57,61 +55,17 @@ export function WalletConnect() {
     return (
       <>
         <Button
-          onClick={() => setIsOpen(true)}
-          disabled={isConnecting}
+          onClick={() => setIsModalOpen(true)}
           className="gap-2"
         >
           <Wallet className="h-4 w-4" />
-          {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+          Connect Wallet
         </Button>
 
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Connect Wallet</DialogTitle>
-              <DialogDescription>
-                Choose a wallet provider to connect to your account
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-2 mt-4">
-              {error && (
-                <div className="text-sm text-red-600 mb-2 p-3 bg-red-50 rounded-md">
-                  {error.message}
-                </div>
-              )}
-              {connectors.length > 0 ? (
-                connectors
-                  .filter((connector) => connector.type !== 'injected' || connector.id === 'io.metamask')
-                  .map((connector) => (
-                    <Button
-                      key={connector.id}
-                      variant="outline"
-                      className="w-full justify-start gap-3"
-                      onClick={() => {
-                        try {
-                          connect({ connector })
-                          setIsOpen(false)
-                        } catch (err) {
-                          console.error('Connection error:', err)
-                          toast.error('Failed to connect wallet')
-                        }
-                      }}
-                    >
-                      <Wallet className="h-5 w-5" />
-                      {connector.name}
-                    </Button>
-                  ))
-              ) : (
-                <div className="text-center py-8 text-muted-foreground text-sm">
-                  <p className="mb-4">No wallet detected.</p>
-                  <p className="text-xs">
-                    Please install MetaMask or another Web3 wallet extension and refresh the page.
-                  </p>
-                </div>
-              )}
-            </div>
-          </DialogContent>
-        </Dialog>
+        <WalletConnectModal
+          open={isModalOpen}
+          onOpenChange={setIsModalOpen}
+        />
       </>
     )
   }
@@ -121,7 +75,7 @@ export function WalletConnect() {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="gap-2">
           <Wallet className="h-4 w-4" />
-          {formatAddress(address)}
+          <span className="hidden sm:inline">{formatAddress(address)}</span>
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
@@ -137,7 +91,10 @@ export function WalletConnect() {
           View on Explorer
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={disconnect} className="cursor-pointer text-red-600">
+        <DropdownMenuItem
+          onClick={disconnect}
+          className="cursor-pointer text-destructive"
+        >
           <LogOut className="mr-2 h-4 w-4" />
           Disconnect
         </DropdownMenuItem>
