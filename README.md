@@ -292,7 +292,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](./LICENSE
 ## 📞 Support & Contact
 
 - **GitHub Issues**: [Report bugs or request features]
-- **Email**: vahdatfardin@example.com
+- **Email**: vahdatfardin@gmail.com
 
 ## 🔗 Useful Links
 
