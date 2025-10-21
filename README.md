@@ -8,7 +8,7 @@ A production-ready, enterprise-grade Web3 decentralized application (DApp) built
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38bdf8.svg)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-![Web3 DApp Demo](https://nextjs-dapp-murex.vercel.app/)
+**[Live Demo](https://nextjs-dapp-murex.vercel.app/)**
 
 ## 🌟 Overview
 
